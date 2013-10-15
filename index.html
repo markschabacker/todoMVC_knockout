@@ -6,7 +6,29 @@
   </head>
   <body>
     <div id="todoapp">
-      <h1>todos</h1>
+      <header id="header">
+        <h1>todos</h1>
+        <input id="new-todo" placeholder="What needs to be done?" />
+      </header>
+      <section id="main" data-bind="visible: todosExist()">
+        <ul id="todo-list" data-bind="foreach: todos()" >
+          <li>
+            <input type="checkbox" class="toggle" data-bind="checked: completed"></input>
+            <label data-bind="text: title" />
+          </li>
+        </ul>
+        <input id="toggle-all" type="checkbox" />
+      </section>
+      <footer id="footer">
+        <span id="todo-count">
+          <strong data-bind="text: itemsLeftCount"></strong> items left
+        </span>
+        <ul id="filters" data-bind="foreach: filters()">
+          <li>
+            <a data-bind="href: url, text: title, css: selected() ? 'selected' : ''"></a>
+          </li>
+        </ul>
+      </footer>
     </div>
     <script type="text/javascript" src="js/jquery-1.10.2.js"></script>
     <script type="text/javascript" src="js/knockout-2.3.0.debug.js"></script>
