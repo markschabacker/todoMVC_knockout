@@ -23,7 +23,9 @@
     };
 
     var itemsLeftCount = ko.computed(function() {
-      return 42;
+      return ko.utils.arrayFilter(todos(), function(todo) {
+        return !todo.completed();
+      }).length;
     });
 
     var filters = ko.observableArray([new Filter("All", "#", true),
