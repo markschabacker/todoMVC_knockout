@@ -12,7 +12,7 @@
       </header>
       <section id="main" data-bind="visible: todosExist()">
         <ul id="todo-list" data-bind="foreach: todos()" >
-          <li>
+          <li data-bind="css: completed() ? 'completed' : ''">
             <input type="checkbox" class="toggle" data-bind="checked: completed"></input>
             <label data-bind="text: title"></label>
             <button class="destroy" data-bind="click: $parent.deleteTodo"></button>
