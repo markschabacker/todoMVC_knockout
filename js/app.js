@@ -13,20 +13,26 @@
 
   var viewModel = (function() {
     var todos = ko.observableArray([new Todo("checked", true), new Todo("unchecked", false)]);
-    var filters = ko.observableArray([new Filter("All", "#", true),
-                                      new Filter("Active", "#/active", false),
-                                      new Filter("Completed", "#/completed", false)]);
 
     var todosExist = ko.computed(function() {
       return 0 < todos().length;
     });
 
+    var deleteTodo = function(todo) {
+      todos.remove(todo);
+    };
+
     var itemsLeftCount = ko.computed(function() {
       return 42;
     });
 
+    var filters = ko.observableArray([new Filter("All", "#", true),
+                                      new Filter("Active", "#/active", false),
+                                      new Filter("Completed", "#/completed", false)]);
+
     return {
       todos: todos,
+      deleteTodo: deleteTodo,
       todosExist: todosExist,
       itemsLeftCount: itemsLeftCount,
       filters: filters,
