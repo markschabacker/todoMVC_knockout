@@ -21,7 +21,7 @@
             ko.bindingHandlers.event.init(element, gatingAccessor, allBindingsAccessor, data);
         }
     };
-})();
+}());
 
 (function () {
     var Todo = function (title, completed) {
