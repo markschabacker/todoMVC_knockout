@@ -131,7 +131,7 @@
         setFilter(filters()[0]);
 
         // internal computed observable to store todos in browser
-        var internalTodoTracker = ko.computed(function () {
+        ko.computed(function () {
             amplify.store(LOCAL_STORAGE_KEY_TODOS, ko.toJS(todos));
         }).extend({
             throttle: 500
