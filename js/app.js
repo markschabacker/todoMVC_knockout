@@ -4,13 +4,15 @@
 
     ko.bindingHandlers.enterKey = {
         init: function (element, valueAccessor, allBindingsAccessor, data) {
-            var gatedHandler = function (data, event) {
+            var gatedHandler, gatingAccessor;
+
+            gatedHandler = function (data, event) {
                 if (event.keyCode === ENTER_KEY) {
                     valueAccessor().call(this, data, event);
                 }
             };
 
-            var gatingAccessor = function () {
+            gatingAccessor = function () {
                 return {
                     keyup: gatedHandler,
                 };
