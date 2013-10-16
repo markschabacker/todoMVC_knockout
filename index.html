@@ -47,6 +47,11 @@
     <script type="text/javascript">
       $(document).ready(function() {
           $("#new-todo").focus();
+          $("#todo-list").on("focus", "input.edit", function() {
+            var $input = $(this);
+            var doubleClickSelctWorkaround = function() { $input.select() };
+            setTimeout(doubleClickSelctWorkaround, 100);
+          });
       });
     </script>
   </body>
