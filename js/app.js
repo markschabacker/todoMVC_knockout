@@ -28,6 +28,17 @@
       }).length;
     });
 
+    var allCompleted = ko.computed({
+      read: function() {
+        return 0 == itemsLeftCount();
+      },
+      write: function(value) {
+        ko.utils.arrayForEach(todos(), function(todo) {
+          todo.completed(value);
+        });
+      }
+    });
+
     var filters = ko.observableArray([new Filter("All", "#", true),
                                       new Filter("Active", "#/active", false),
                                       new Filter("Completed", "#/completed", false)]);
@@ -37,6 +48,7 @@
       deleteTodo: deleteTodo,
       todosExist: todosExist,
       itemsLeftCount: itemsLeftCount,
+      allCompleted: allCompleted,
       filters: filters,
     };
   })();
