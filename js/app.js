@@ -27,9 +27,10 @@
     this.editing = ko.observable(false);
   }
 
-  var Filter = function(title, url) {
+  var Filter = function(title, url, filterFunction) {
     this.title = ko.observable(title);
     this.url = ko.observable(url);
+    this.filterFunction = filterFunction;
   }
 
   var viewModel = (function() {
@@ -73,14 +74,24 @@
       return (1 == count) ? input : input + "s";
     }
 
-    var filters = ko.observableArray([new Filter("All", "#"),
-                                      new Filter("Active", "#/active"),
-                                      new Filter("Completed", "#/completed")]);
+    var filters = ko.observableArray([
+        new Filter("All", "#", function(todo) { return true; }),
+        new Filter("Active", "#/active", function(todo) { return !todo.completed(); }),
+        new Filter("Completed", "#/completed", function(todo) { return todo.completed(); }),
+    ]);
+
     var currentFilter = ko.observable();
 
     var setFilter = function(filter) {
       currentFilter(filter);
     };
+
+    var filteredTodos = ko.computed(function() {
+      var filterFunction = currentFilter() && currentFilter().filterFunction
+                            ? currentFilter().filterFunction
+                            : function(todo) { return true; };
+      return ko.utils.arrayFilter(todos(), filterFunction);
+    });
 
     setFilter(filters()[0]);
 
@@ -95,6 +106,7 @@
       filters: filters,
       currentFilter: currentFilter,
       setFilter: setFilter,
+      filteredTodos: filteredTodos,
       pluralize: pluralize,
     };
   })();

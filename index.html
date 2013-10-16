@@ -11,7 +11,7 @@
         <input id="new-todo" data-bind="value: currentTodoTitle, enterKey: addNewTodo" placeholder="What needs to be done?" />
       </header>
       <section id="main" data-bind="visible: todosExist()">
-        <ul id="todo-list" data-bind="foreach: todos()" >
+        <ul id="todo-list" data-bind="foreach: filteredTodos()" >
           <li data-bind="css: completed() ? 'completed' : ''">
             <input type="checkbox" class="toggle" data-bind="checked: completed"></input>
             <label data-bind="text: title"></label>
