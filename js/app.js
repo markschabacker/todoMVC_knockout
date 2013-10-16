@@ -108,7 +108,7 @@
 
         var pluralize = function (input, count) {
             return (1 === count) ? input : input + "s";
-        }
+        };
 
         var filters = ko.observableArray([
                 new Filter("All", "#/", function (todo) { return true; }),
