@@ -1,16 +1,16 @@
-(function() {
+(function () {
     "use strict";
     var ENTER_KEY = 13;
 
     ko.bindingHandlers.enterKey = {
-        init: function(element, valueAccessor, allBindingsAccessor, data) {
-            var gatedHandler = function(data, event) {
+        init: function (element, valueAccessor, allBindingsAccessor, data) {
+            var gatedHandler = function (data, event) {
                 if(event.keyCode === ENTER_KEY) {
                     valueAccessor().call(this, data, event);
                 }
             };
 
-            var gatingAccessor = function() {
+            var gatingAccessor = function () {
                 return {
                     keyup: gatedHandler,
                 };
@@ -21,40 +21,40 @@
     };
 })();
 
-(function() {
-    var Todo = function(title, completed) {
+(function () {
+    var Todo = function (title, completed) {
         this.title = ko.observable(title);
         this.completed = ko.observable(completed);
         this.editing = ko.observable(false);
     }
 
-    var Filter = function(title, url, filterFunction) {
+    var Filter = function (title, url, filterFunction) {
         this.title = ko.observable(title);
         this.url = ko.observable(url);
         this.filterFunction = filterFunction;
     }
 
-    var viewModel = (function() {
+    var viewModel = (function () {
         var LOCAL_STORAGE_KEY_TODOS = "mms.TodoMVC.todos";
 
         var browserTodos = amplify.store(LOCAL_STORAGE_KEY_TODOS);
         browserTodos = browserTodos || [];
         console.log("browserTodos: " + JSON.stringify(browserTodos));
-        var todos = ko.observableArray(ko.utils.arrayMap(browserTodos, function(todo) {
+        var todos = ko.observableArray(ko.utils.arrayMap(browserTodos, function (todo) {
             return new Todo(todo.title, todo.completed);
         }));
 
         var currentTodoTitle = ko.observable();
 
-        var todosExist = ko.computed(function() {
+        var todosExist = ko.computed(function () {
             return 0 < todos().length;
         });
 
-        var deleteTodo = function(todo) {
+        var deleteTodo = function (todo) {
             todos.remove(todo);
         };
 
-        var addNewTodo = function() {
+        var addNewTodo = function () {
             var trimmedTitle = currentTodoTitle() && currentTodoTitle().trim();
             if(trimmedTitle) {
                 todos.unshift(new Todo(currentTodoTitle(), false));
@@ -62,11 +62,11 @@
             }
         };
 
-        var editTodo = function(todo) {
+        var editTodo = function (todo) {
             todo.editing(true);
         };
 
-        var finishEditing = function(todo) {
+        var finishEditing = function (todo) {
             todo.editing(false);
 
             if(0 == todo.title().trim().length)
@@ -75,60 +75,60 @@
             }
         };
 
-        var itemsLeftCount = ko.computed(function() {
-            return ko.utils.arrayFilter(todos(), function(todo) {
+        var itemsLeftCount = ko.computed(function () {
+            return ko.utils.arrayFilter(todos(), function (todo) {
                 return !todo.completed();
             }).length;
         });
 
         var allCompleted = ko.computed({
-            read: function() {
+            read: function () {
                 return 0 == itemsLeftCount();
             },
-            write: function(value) {
-                ko.utils.arrayForEach(todos(), function(todo) {
+            write: function (value) {
+                ko.utils.arrayForEach(todos(), function (todo) {
                     todo.completed(value);
                 });
             }
         });
 
-        var completedCount = ko.computed(function() {
+        var completedCount = ko.computed(function () {
             return todos().length - itemsLeftCount();
         });
 
-        var clearCompleted = function() {
-            todos.remove(function(todo) {
+        var clearCompleted = function () {
+            todos.remove(function (todo) {
                 return todo.completed();
             });
         };
 
-        var pluralize = function(input, count) {
+        var pluralize = function (input, count) {
             return (1 == count) ? input : input + "s";
         }
 
         var filters = ko.observableArray([
-                new Filter("All", "#/", function(todo) { return true; }),
-                new Filter("Active", "#/active", function(todo) { return !todo.completed(); }),
-                new Filter("Completed", "#/completed", function(todo) { return todo.completed(); }),
+                new Filter("All", "#/", function (todo) { return true; }),
+                new Filter("Active", "#/active", function (todo) { return !todo.completed(); }),
+                new Filter("Completed", "#/completed", function (todo) { return todo.completed(); }),
                 ]);
 
         var currentFilter = ko.observable();
 
-        var setFilter = function(filter) {
+        var setFilter = function (filter) {
             currentFilter(filter);
         };
 
-        var filteredTodos = ko.computed(function() {
+        var filteredTodos = ko.computed(function () {
             var filterFunction = currentFilter() && currentFilter().filterFunction
             ? currentFilter().filterFunction
-            : function(todo) { return true; };
+            : function (todo) { return true; };
         return ko.utils.arrayFilter(todos(), filterFunction);
         });
 
         setFilter(filters()[0]);
 
         // internal computed observable to store todos in browser
-        var internalTodoTracker = ko.computed(function() {
+        var internalTodoTracker = ko.computed(function () {
             amplify.store(LOCAL_STORAGE_KEY_TODOS, ko.toJS(todos));
         }).extend({
             throttle: 500
@@ -156,10 +156,10 @@
 
     ko.applyBindings(viewModel);
 
-    var sammy = Sammy(function() {
+    var sammy = Sammy(function () {
         var self = this;
-        ko.utils.arrayForEach(viewModel.filters(), function(filter) {
-            self.get(filter.url(), function() {
+        ko.utils.arrayForEach(viewModel.filters(), function (filter) {
+            self.get(filter.url(), function () {
                 viewModel.setFilter(filter);
             });
         });
