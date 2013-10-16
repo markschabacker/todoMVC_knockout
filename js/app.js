@@ -30,13 +30,13 @@
         this.title = ko.observable(title);
         this.completed = ko.observable(completed);
         this.editing = ko.observable(false);
-    }
+    };
 
     var Filter = function (title, url, filterFunction) {
         this.title = ko.observable(title);
         this.url = ko.observable(url);
         this.filterFunction = filterFunction;
-    }
+    };
 
     var viewModel = (function () {
         var LOCAL_STORAGE_KEY_TODOS = "mms.TodoMVC.todos";
