@@ -35,6 +35,7 @@
 
   var viewModel = (function() {
     var todos = ko.observableArray([new Todo("checked", true), new Todo("unchecked", false)]);
+    var currentTodoTitle = ko.observable();
 
     var todosExist = ko.computed(function() {
       return 0 < todos().length;
@@ -42,6 +43,14 @@
 
     var deleteTodo = function(todo) {
       todos.remove(todo);
+    };
+
+    var addNewTodo = function() {
+      var trimmedTitle = currentTodoTitle() && currentTodoTitle().trim();
+      if(trimmedTitle) {
+        todos.unshift(new Todo(currentTodoTitle(), false));
+        currentTodoTitle("");
+      }
     };
 
     var itemsLeftCount = ko.computed(function() {
@@ -70,7 +79,9 @@
                                       new Filter("Completed", "#/completed", false)]);
 
     return {
+      currentTodoTitle: currentTodoTitle,
       todos: todos,
+      addNewTodo: addNewTodo,
       deleteTodo: deleteTodo,
       todosExist: todosExist,
       itemsLeftCount: itemsLeftCount,
