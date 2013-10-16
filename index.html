@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -14,7 +15,7 @@
         <ul id="todo-list" data-bind="foreach: filteredTodos()" >
           <li data-bind="css: { completed: completed, editing: editing }">
             <!-- ko if: !editing() -->
-            <input type="checkbox" class="toggle" data-bind="checked: completed"></input>
+            <input type="checkbox" class="toggle" data-bind="checked: completed" />
             <label data-bind="text: title, event: { dblclick: $root.editTodo }"></label>
             <button class="destroy" data-bind="click: $parent.deleteTodo"></button>
             <!-- /ko -->
