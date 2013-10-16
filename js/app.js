@@ -1,4 +1,26 @@
 (function() {
+  var ENTER_KEY = 13;
+
+  ko.bindingHandlers.enterKey = {
+    init: function(element, valueAccessor, allBindingsAccessor, data) {
+      var gatedHandler = function(data, event) {
+        if(event.keyCode === ENTER_KEY) {
+          valueAccessor().call(this, data, event);
+        }
+      };
+
+      var gatingAccessor = function() {
+        return {
+          keyup: gatedHandler,
+        };
+      };
+
+      ko.bindingHandlers.event.init(element, gatingAccessor, allBindingsAccessor, data);
+    },
+  };
+})();
+
+(function() {
   var Todo = function(title, completed) {
     this.title = ko.observable(title);
     this.completed = ko.observable(completed);
