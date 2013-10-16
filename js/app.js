@@ -14,12 +14,12 @@
 
             gatingAccessor = function () {
                 return {
-                    keyup: gatedHandler,
+                    keyup: gatedHandler
                 };
             };
 
             ko.bindingHandlers.event.init(element, gatingAccessor, allBindingsAccessor, data);
-        },
+        }
     };
 })();
 
