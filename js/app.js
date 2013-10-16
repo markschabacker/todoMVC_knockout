@@ -112,7 +112,7 @@
         var filters = ko.observableArray([
                 new Filter("All", "#/", function () { return true; }),
                 new Filter("Active", "#/active", function (todo) { return !todo.completed(); }),
-                new Filter("Completed", "#/completed", function (todo) { return todo.completed(); }),
+                new Filter("Completed", "#/completed", function (todo) { return todo.completed(); })
                 ]);
 
         var currentFilter = ko.observable();
@@ -153,7 +153,7 @@
                 currentFilter: currentFilter,
                 setFilter: setFilter,
                 filteredTodos: filteredTodos,
-                pluralize: pluralize,
+                pluralize: pluralize
         };
     })();
 
