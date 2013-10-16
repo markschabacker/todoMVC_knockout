@@ -70,6 +70,16 @@
       }
     });
 
+    var completedCount = ko.computed(function() {
+      return todos().length - itemsLeftCount();
+    });
+
+    var clearCompleted = function() {
+      todos.remove(function(todo) {
+        return todo.completed();
+      });
+    };
+
     var pluralize = function(input, count) {
       return (1 == count) ? input : input + "s";
     }
@@ -103,6 +113,8 @@
       todosExist: todosExist,
       itemsLeftCount: itemsLeftCount,
       allCompleted: allCompleted,
+      clearCompleted: clearCompleted,
+      completedCount: completedCount,
       filters: filters,
       currentFilter: currentFilter,
       setFilter: setFilter,

@@ -31,6 +31,9 @@
             css: $parent.currentFilter() === $data ? 'selected' : ''"></a>
           </li>
         </ul>
+        <button id="clear-completed" data-bind="click: clearCompleted, visible: 0 < completedCount()" >
+          Clear Completed (<!-- ko text: completedCount() --><!-- /ko -->)
+        </button>
       </footer>
     </div>
     <script type="text/javascript" src="js/jquery-1.10.2.js"></script>
