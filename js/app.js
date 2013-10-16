@@ -159,7 +159,7 @@
 
     ko.applyBindings(viewModel);
 
-    var sammy = Sammy(function () {
+    var sammy = $.sammy(function () {
         var self = this;
         ko.utils.arrayForEach(viewModel.filters(), function (filter) {
             self.get(filter.url(), function () {
