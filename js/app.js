@@ -39,6 +39,10 @@
       }
     });
 
+    var pluralize = function(input, count) {
+      return (1 == count) ? input : input + "s";
+    }
+
     var filters = ko.observableArray([new Filter("All", "#", true),
                                       new Filter("Active", "#/active", false),
                                       new Filter("Completed", "#/completed", false)]);
@@ -50,6 +54,7 @@
       itemsLeftCount: itemsLeftCount,
       allCompleted: allCompleted,
       filters: filters,
+      pluralize: pluralize,
     };
   })();
 

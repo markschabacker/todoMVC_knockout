@@ -22,7 +22,7 @@
       </section>
       <footer id="footer">
         <span id="todo-count">
-          <strong data-bind="text: itemsLeftCount"></strong> items left
+          <strong data-bind="text: itemsLeftCount"></strong> <span data-bind="text: pluralize('item', itemsLeftCount())"></span> left
         </span>
         <ul id="filters" data-bind="foreach: filters()">
           <li>
