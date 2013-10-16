@@ -155,7 +155,7 @@
             filteredTodos: filteredTodos,
             pluralize: pluralize
         };
-    })();
+    }());
 
     ko.applyBindings(viewModel);
 
@@ -168,4 +168,4 @@
         });
     });
     sammy.run(viewModel.currentFilter().url());
-})();
+}());
