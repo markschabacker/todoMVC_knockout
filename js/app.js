@@ -113,7 +113,7 @@
                 new Filter("All", "#/", function () { return true; }),
                 new Filter("Active", "#/active", function (todo) { return !todo.completed(); }),
                 new Filter("Completed", "#/completed", function (todo) { return todo.completed(); })
-                ]);
+            ]);
 
         var currentFilter = ko.observable();
 
@@ -123,9 +123,9 @@
 
         var filteredTodos = ko.computed(function () {
             var filterFunction = currentFilter() && currentFilter().filterFunction
-            ? currentFilter().filterFunction
-            : function () { return true; };
-        return ko.utils.arrayFilter(todos(), filterFunction);
+                    ? currentFilter().filterFunction
+                    : function () { return true; };
+            return ko.utils.arrayFilter(todos(), filterFunction);
         });
 
         setFilter(filters()[0]);
@@ -139,21 +139,21 @@
 
         return {
             currentTodoTitle: currentTodoTitle,
-                todos: todos,
-                addNewTodo: addNewTodo,
-                deleteTodo: deleteTodo,
-                editTodo: editTodo,
-                finishEditing: finishEditing,
-                todosExist: todosExist,
-                itemsLeftCount: itemsLeftCount,
-                allCompleted: allCompleted,
-                clearCompleted: clearCompleted,
-                completedCount: completedCount,
-                filters: filters,
-                currentFilter: currentFilter,
-                setFilter: setFilter,
-                filteredTodos: filteredTodos,
-                pluralize: pluralize
+            todos: todos,
+            addNewTodo: addNewTodo,
+            deleteTodo: deleteTodo,
+            editTodo: editTodo,
+            finishEditing: finishEditing,
+            todosExist: todosExist,
+            itemsLeftCount: itemsLeftCount,
+            allCompleted: allCompleted,
+            clearCompleted: clearCompleted,
+            completedCount: completedCount,
+            filters: filters,
+            currentFilter: currentFilter,
+            setFilter: setFilter,
+            filteredTodos: filteredTodos,
+            pluralize: pluralize
         };
     })();
 
