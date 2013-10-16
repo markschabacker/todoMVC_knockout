@@ -110,7 +110,7 @@
         };
 
         var filters = ko.observableArray([
-                new Filter("All", "#/", function (todo) { return true; }),
+                new Filter("All", "#/", function () { return true; }),
                 new Filter("Active", "#/active", function (todo) { return !todo.completed(); }),
                 new Filter("Completed", "#/completed", function (todo) { return todo.completed(); }),
                 ]);
@@ -124,7 +124,7 @@
         var filteredTodos = ko.computed(function () {
             var filterFunction = currentFilter() && currentFilter().filterFunction
             ? currentFilter().filterFunction
-            : function (todo) { return true; };
+            : function () { return true; };
         return ko.utils.arrayFilter(todos(), filterFunction);
         });
 
