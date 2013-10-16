@@ -1,3 +1,6 @@
+/*jslint vars: true */
+/*global $, amplify, console, ko, Sammy */
+
 (function () {
     "use strict";
     var ENTER_KEY = 13;
