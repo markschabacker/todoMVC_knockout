@@ -26,9 +26,8 @@
         </span>
         <ul id="filters" data-bind="foreach: filters()">
           <li>
-          <a data-bind="href: url,
-            text: title,
-            click: function() { $parent.setFilter($data) },
+          <a data-bind="text: title,
+            attr: { href: url },
             css: $parent.currentFilter() === $data ? 'selected' : ''"></a>
           </li>
         </ul>

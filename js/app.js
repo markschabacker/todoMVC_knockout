@@ -75,7 +75,7 @@
     }
 
     var filters = ko.observableArray([
-        new Filter("All", "#", function(todo) { return true; }),
+        new Filter("All", "#/", function(todo) { return true; }),
         new Filter("Active", "#/active", function(todo) { return !todo.completed(); }),
         new Filter("Completed", "#/completed", function(todo) { return todo.completed(); }),
     ]);
@@ -112,4 +112,14 @@
   })();
 
   ko.applyBindings(viewModel);
+
+  var sammy = Sammy(function() {
+    var self = this;
+    ko.utils.arrayForEach(viewModel.filters(), function(filter) {
+      self.get(filter.url(), function() {
+        viewModel.setFilter(filter);
+      });
+    });
+  });
+  sammy.run(viewModel.currentFilter().url());
 })();
