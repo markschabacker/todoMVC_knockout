@@ -26,7 +26,10 @@
         </span>
         <ul id="filters" data-bind="foreach: filters()">
           <li>
-            <a data-bind="href: url, text: title, css: selected() ? 'selected' : ''"></a>
+          <a data-bind="href: url,
+            text: title,
+            click: function() { $parent.setFilter($data) },
+            css: $parent.currentFilter() === $data ? 'selected' : ''"></a>
           </li>
         </ul>
       </footer>

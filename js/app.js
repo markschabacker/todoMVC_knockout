@@ -27,10 +27,9 @@
     this.editing = ko.observable(false);
   }
 
-  var Filter = function(title, url, selected) {
+  var Filter = function(title, url) {
     this.title = ko.observable(title);
     this.url = ko.observable(url);
-    this.selected = ko.observable(selected);
   }
 
   var viewModel = (function() {
@@ -74,9 +73,16 @@
       return (1 == count) ? input : input + "s";
     }
 
-    var filters = ko.observableArray([new Filter("All", "#", true),
-                                      new Filter("Active", "#/active", false),
-                                      new Filter("Completed", "#/completed", false)]);
+    var filters = ko.observableArray([new Filter("All", "#"),
+                                      new Filter("Active", "#/active"),
+                                      new Filter("Completed", "#/completed")]);
+    var currentFilter = ko.observable();
+
+    var setFilter = function(filter) {
+      currentFilter(filter);
+    };
+
+    setFilter(filters()[0]);
 
     return {
       currentTodoTitle: currentTodoTitle,
@@ -87,6 +93,8 @@
       itemsLeftCount: itemsLeftCount,
       allCompleted: allCompleted,
       filters: filters,
+      currentFilter: currentFilter,
+      setFilter: setFilter,
       pluralize: pluralize,
     };
   })();
