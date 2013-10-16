@@ -73,8 +73,7 @@
         var finishEditing = function (todo) {
             todo.editing(false);
 
-            if (0 === todo.title().trim().length)
-            {
+            if (0 === todo.title().trim().length) {
                 todos.remove(todo);
             }
         };
