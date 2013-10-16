@@ -34,7 +34,15 @@
   }
 
   var viewModel = (function() {
-    var todos = ko.observableArray([new Todo("completed example", true), new Todo("active example", false)]);
+    var LOCAL_STORAGE_KEY_TODOS = "mms.TodoMVC.todos";
+
+    var browserTodos = amplify.store(LOCAL_STORAGE_KEY_TODOS);
+    browserTodos = browserTodos || [];
+    console.log("browserTodos: " + JSON.stringify(browserTodos));
+    var todos = ko.observableArray(ko.utils.arrayMap(browserTodos, function(todo) {
+      return new Todo(todo.title, todo.completed);
+    }));
+
     var currentTodoTitle = ko.observable();
 
     var todosExist = ko.computed(function() {
@@ -104,6 +112,13 @@
     });
 
     setFilter(filters()[0]);
+
+    // internal computed observable to store todos in browser
+    var internalTodoTracker = ko.computed(function() {
+      amplify.store(LOCAL_STORAGE_KEY_TODOS, ko.toJS(todos));
+    }).extend({
+      throttle: 500
+    });
 
     return {
       currentTodoTitle: currentTodoTitle,
