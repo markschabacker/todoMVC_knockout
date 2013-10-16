@@ -61,6 +61,19 @@
       }
     };
 
+    var editTodo = function(todo) {
+      todo.editing(true);
+    };
+
+    var finishEditing = function(todo) {
+      todo.editing(false);
+
+      if(0 == todo.title().trim().length)
+      {
+        todos.remove(todo);
+      }
+    };
+
     var itemsLeftCount = ko.computed(function() {
       return ko.utils.arrayFilter(todos(), function(todo) {
         return !todo.completed();
@@ -125,6 +138,8 @@
       todos: todos,
       addNewTodo: addNewTodo,
       deleteTodo: deleteTodo,
+      editTodo: editTodo,
+      finishEditing: finishEditing,
       todosExist: todosExist,
       itemsLeftCount: itemsLeftCount,
       allCompleted: allCompleted,
