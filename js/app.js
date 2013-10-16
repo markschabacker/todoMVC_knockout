@@ -73,7 +73,7 @@
         var finishEditing = function (todo) {
             todo.editing(false);
 
-            if (0 == todo.title().trim().length)
+            if (0 === todo.title().trim().length)
             {
                 todos.remove(todo);
             }
@@ -87,7 +87,7 @@
 
         var allCompleted = ko.computed({
             read: function () {
-                return 0 == itemsLeftCount();
+                return 0 === itemsLeftCount();
             },
             write: function (value) {
                 ko.utils.arrayForEach(todos(), function (todo) {
@@ -107,7 +107,7 @@
         };
 
         var pluralize = function (input, count) {
-            return (1 == count) ? input : input + "s";
+            return (1 === count) ? input : input + "s";
         }
 
         var filters = ko.observableArray([
