@@ -34,7 +34,7 @@
   }
 
   var viewModel = (function() {
-    var todos = ko.observableArray([new Todo("checked", true), new Todo("unchecked", false)]);
+    var todos = ko.observableArray([new Todo("completed example", true), new Todo("active example", false)]);
     var currentTodoTitle = ko.observable();
 
     var todosExist = ko.computed(function() {
