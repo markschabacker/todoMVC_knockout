@@ -24,6 +24,8 @@
 }());
 
 (function () {
+    "use strict";
+
     var Todo = function (title, completed) {
         this.title = ko.observable(title);
         this.completed = ko.observable(completed);
