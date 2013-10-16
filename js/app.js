@@ -5,7 +5,7 @@
     ko.bindingHandlers.enterKey = {
         init: function (element, valueAccessor, allBindingsAccessor, data) {
             var gatedHandler = function (data, event) {
-                if(event.keyCode === ENTER_KEY) {
+                if (event.keyCode === ENTER_KEY) {
                     valueAccessor().call(this, data, event);
                 }
             };
@@ -56,7 +56,7 @@
 
         var addNewTodo = function () {
             var trimmedTitle = currentTodoTitle() && currentTodoTitle().trim();
-            if(trimmedTitle) {
+            if (trimmedTitle) {
                 todos.unshift(new Todo(currentTodoTitle(), false));
                 currentTodoTitle("");
             }
@@ -69,7 +69,7 @@
         var finishEditing = function (todo) {
             todo.editing(false);
 
-            if(0 == todo.title().trim().length)
+            if (0 == todo.title().trim().length)
             {
                 todos.remove(todo);
             }
